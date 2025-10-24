@@ -6,3 +6,5 @@ matplotlib==3.9.2
 weasyprint==62.3
 jinja2==3.1.4
 python-dotenv==1.0.1
+db-dtypes==1.4.3
+pyarrow==21.0.0
