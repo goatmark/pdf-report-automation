@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="{{ css_path }}">
+  <style>@page { size: A4; margin: 24mm 18mm; }</style>
+</head>
+<body>
+  <header class="header">
+    <div class="title">{{ title }}</div>
+    <div class="subtitle">{{ subtitle }}</div>
+  </header>
+
+  <main class="grid">
+    {% for item in items %}
+      <section class="card">
+        <h2 class="card-title">{{ item.title }}</h2>
+        <img class="chart" src="{{ item.src }}">
+      </section>
+    {% endfor %}
+  </main>
+
+  <footer class="footer">generated {{ generated_at }}</footer>
+</body>
+</html>

@@ -1,0 +1,45 @@
+name: daily-report
+
+on:
+  schedule:
+    - cron: "15 9 * * *"  # daily at 09:15 UTC
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-22.04
+
+    env:
+      GCP_SA_KEY_SON: ${{ secrets.GCP_SA_KEY_SON }}
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: apt deps for weasyprint
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libcairo2 libpango-1.0-0 libpangocairo-1.0-0 \
+            libgdk-pixbuf-2.0-0 libffi8 libxml2 libxslt1.1 \
+            fonts-dejavu-core
+
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: pip deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: run report
+        run: |
+          python src/main.py
+
+      - name: upload pdf artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: monthly-report
+          path: out/*.pdf
