@@ -12,6 +12,10 @@ from weasyprint import HTML
 
 from google.cloud import bigquery
 from google.oauth2 import service_account
+import dotenv
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # ---- project setup ----
 ROOT = Path(__file__).resolve().parent.parent
